@@ -1,0 +1,7 @@
+export KOPS_STATE_STORE=s3://aravindh-kops-s3bucket
+
+kops create cluster --name aravindh.k8s.local --zones us-east-1a,us-east-1b --master-count 1 --master-size m7i-flex.large --master-volume-size 30 --node-count 2 --node-size c7i-flex.large --node-volume-size 20 --image=ami-0b6d9d3d33ba97d99
+
+kops update cluster --name aravindh.k8s.local --yes --admin
+
+kops delete cluster --name aravindh.k8s.local --yes

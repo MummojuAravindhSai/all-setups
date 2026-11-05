@@ -1,0 +1,15 @@
+install helm
+
+helm install prometheus oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+
+kubectl get pods
+kubectl --namespace default get secrets prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+kubectl get svc
+kubectl patch svc prometheus-grafana -p '{"spec":{"type":"LoadBalancer"}}'
+kubectl  patch svc prometheus-kube-prometheus-prometheus -p '{"spec":{"type":"LoadBalancer"}}'
+
+
+access both promethus & grafana dashboards
+cd alert-config/
+vim alert-config.yaml
